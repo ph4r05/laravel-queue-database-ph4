@@ -69,6 +69,7 @@ Benefits:
  - No DB level locking, thus no deadlocks. Works also with databases without deadlock detection (older MySQL).
  - Job executed exactly once (as opposed to pessimistic default DB locking)
  - High throughput.
+ - Tested with MySQL, PostgreSQL, Sqlite.
  
 Cons:
  - Job ordering can be slightly shifted with multiple workers (reordering 0-70 in 10 000 jobs)
