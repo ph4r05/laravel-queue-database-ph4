@@ -3,7 +3,7 @@ RabbitMQ Queue driver for Laravel
 [![Latest Stable Version](https://poser.pugx.org/ph4r05/laravel-queue-database-ph4/v/stable?format=flat-square)](https://packagist.org/packages/ph4r05/laravel-queue-database-ph4)
 [![Build Status](https://img.shields.io/travis/ph4r05/laravel-queue-database-ph4.svg?style=flat-square)](https://travis-ci.org/ph4r05/laravel-queue-database-ph4)
 [![Total Downloads](https://poser.pugx.org/ph4r05/laravel-queue-database-ph4/downloads?format=flat-square)](https://packagist.org/packages/ph4r05/laravel-queue-database-ph4)
-[![StyleCI](https://styleci.io/repos/14976752/shield)](https://styleci.io/repos/14976752)
+[![StyleCI](https://styleci.io/repos/115196581/shield)](https://styleci.io/repos/115196581)
 [![License](https://poser.pugx.org/ph4r05/laravel-queue-database-ph4/license?format=flat-square)](https://packagist.org/packages/ph4r05/laravel-queue-database-ph4)
 
 #### Installation
