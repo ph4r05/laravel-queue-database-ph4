@@ -6,6 +6,8 @@ RabbitMQ Queue driver for Laravel
 [![StyleCI](https://styleci.io/repos/115196581/shield)](https://styleci.io/repos/115196581)
 [![License](https://poser.pugx.org/ph4r05/laravel-queue-database-ph4/license?format=flat-square)](https://packagist.org/packages/ph4r05/laravel-queue-database-ph4)
 
+Laravel database queue implementation using optimistic locking.
+
 #### Installation
 
 1. Install this package via composer using:
