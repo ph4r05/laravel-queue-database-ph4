@@ -14,7 +14,14 @@ RabbitMQ Queue driver for Laravel
 composer require ph4r05/laravel-queue-database-ph4
 ```
 
-2. Queue configuration
+2. Create job table
+
+```bash
+php artisan queue_ph4:table
+php artisan migrate
+```
+
+3. Queue configuration
 
 ```php
 <?php
