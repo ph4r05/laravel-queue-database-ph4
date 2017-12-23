@@ -5,6 +5,7 @@ namespace ph4r05\LaravelDatabasePh4\Queue\Connectors;
 
 use Illuminate\Queue\Connectors\DatabaseConnector;
 use Illuminate\Support\Facades\Log;
+use ph4r05\LaravelDatabasePh4\Queue\Ph4DatabaseInterface;
 
 
 class DatabasePh4Connector extends DatabaseConnector
