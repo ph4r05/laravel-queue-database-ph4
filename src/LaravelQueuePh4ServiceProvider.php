@@ -4,7 +4,6 @@ namespace ph4r05\LaravelDatabasePh4;
 
 use Illuminate\Queue\QueueManager;
 use Illuminate\Support\ServiceProvider;
-
 use ph4r05\LaravelDatabasePh4\Queue\Connectors\DatabasePh4Connector;
 use ph4r05\LaravelDatabasePh4\Queue\Console\FailedTableCommand;
 use ph4r05\LaravelDatabasePh4\Queue\Console\TableCommand;
@@ -33,7 +32,7 @@ class LaravelQueuePh4ServiceProvider extends ServiceProvider
     {
         /** @var QueueManager $queue */
         $queue = $this->app['queue'];
-        
+
         $queue->addConnector('database_ph4', function () {
             return new DatabasePh4Connector($this->app['db']);
         });
