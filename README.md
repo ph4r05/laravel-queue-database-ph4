@@ -1,5 +1,5 @@
-RabbitMQ Queue driver for Laravel
-======================
+Database Queue driver for Laravel with optimistic locking
+=========================================================
 [![Latest Stable Version](https://poser.pugx.org/ph4r05/laravel-queue-database-ph4/v/stable?format=flat-square)](https://packagist.org/packages/ph4r05/laravel-queue-database-ph4)
 [![Build Status](https://img.shields.io/travis/ph4r05/laravel-queue-database-ph4.svg?style=flat-square)](https://travis-ci.org/ph4r05/laravel-queue-database-ph4)
 [![Total Downloads](https://poser.pugx.org/ph4r05/laravel-queue-database-ph4/downloads?format=flat-square)](https://packagist.org/packages/ph4r05/laravel-queue-database-ph4)
@@ -7,6 +7,7 @@ RabbitMQ Queue driver for Laravel
 [![License](https://poser.pugx.org/ph4r05/laravel-queue-database-ph4/license?format=flat-square)](https://packagist.org/packages/ph4r05/laravel-queue-database-ph4)
 
 Laravel database queue implementation using optimistic locking.
+Increases concurrency, eliminates deadlocks. 
 
 #### Installation
 
