@@ -20,7 +20,7 @@ class LaravelQueuePh4ServiceProvider extends ServiceProvider
     {
         $this->commands([
             TableCommand::class,
-            FailedTableCommand::class,
+            // FailedTableCommand::class,
         ]);
     }
 
