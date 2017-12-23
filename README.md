@@ -39,6 +39,14 @@ return [
 ];
 ```
 
+- The `num_workers` should correspond to the number of workers processing jobs in the queue.
+- `window_strategy`. 
+  - 0 means worker selects one available job for processing. 
+  Smaller throughput, job ordering is preserved as with pessimistic locking.
+  - 1 means workers will select `num_workers` next available jobs and picks one at random.
+  Higher throughput with slight job reordering (for more info please refer to the [blog])
+
+
 #### Usage
 
 Once you completed the configuration you can use Laravel Queue API. If you used other queue drivers you do not need to change anything else. If you do not know how to use Queue API, please refer to the official Laravel documentation: http://laravel.com/docs/queues
@@ -51,8 +59,22 @@ Run the tests with:
 vendor/bin/phpunit
 ```
 
+#### Blog post about optimistic locking
+
+https://ph4r05.deadcode.me/blog/2017/12/23/laravel-queues-optimization.html
+
+Benefits:
+
+ - No need for explicit transactions. Single query auto-commit transactions are OK.
+ - No DB level locking, thus no deadlocks. Works also with databases without deadlock detection (older MySQL).
+ - Job executed exactly once (as opposed to pessimistic default DB locking)
+ - High throughput.
+ 
+Cons:
+ - Job ordering can be slightly shifted with multiple workers (reordering 0-70 in 10 000 jobs)
 
 #### Contribution
 
 You can contribute to this package by discovering bugs and opening issues. Please, add to which version of package you create pull request or issue. 
 
+[blog]: https://ph4r05.deadcode.me/blog/2017/12/23/laravel-queues-optimization.html
