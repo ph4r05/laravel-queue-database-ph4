@@ -3,15 +3,12 @@
 namespace VladimirYuldashev\LaravelQueueRabbitMQ\Tests;
 
 use Illuminate\Container\Container;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\ConnectionResolverInterface;
 use Illuminate\Queue\QueueManager;
 use Illuminate\Support\ServiceProvider;
 use ph4r05\LaravelDatabasePh4\LaravelQueuePh4ServiceProvider;
 use ph4r05\LaravelDatabasePh4\Queue\Connectors\DatabasePh4Connector;
 use PHPUnit\Framework\TestCase;
-use VladimirYuldashev\LaravelQueueRabbitMQ\LaravelQueueRabbitMQServiceProvider;
-use VladimirYuldashev\LaravelQueueRabbitMQ\Queue\Connectors\RabbitMQConnector;
 
 class LaravelQueuePh4ServiceProviderTest extends TestCase
 {
@@ -36,8 +33,7 @@ class LaravelQueuePh4ServiceProviderTest extends TestCase
 
                 $this->assertInstanceOf(DatabasePh4Connector::class, $connector);
                 $this->assertAttributeSame($resolverMock, 'connections', $connector);
-            })
-        ;
+            });
 
         $app = Container::getInstance();
         $app['queue'] = $queueMock;

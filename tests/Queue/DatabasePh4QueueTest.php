@@ -4,16 +4,9 @@ namespace VladimirYuldashev\LaravelQueueRabbitMQ\Queue;
 
 use Illuminate\Container\Container;
 use Illuminate\Database\Connection;
-use Interop\Amqp\AmqpConsumer;
-use Interop\Amqp\AmqpContext;
-use Interop\Amqp\AmqpMessage;
-use Interop\Amqp\AmqpProducer;
-use Interop\Amqp\AmqpQueue;
-use Interop\Amqp\AmqpTopic;
 use ph4r05\LaravelDatabasePh4\Queue\OptimisticDatabaseQueue;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
-use VladimirYuldashev\LaravelQueueRabbitMQ\Queue\Jobs\RabbitMQJob;
 
 class DatabasePh4QueueTest extends TestCase
 {
@@ -55,11 +48,11 @@ class DatabasePh4QueueTest extends TestCase
     private function createDummyConfig()
     {
         return [
-            'driver'    => 'sqlite',
-            'database'  => ':memory:',
-            'table' => 'jobs_ph4',
-            'queue' => 'default',
-            'retry_after' => 5
+            'driver'      => 'sqlite',
+            'database'    => ':memory:',
+            'table'       => 'jobs_ph4',
+            'queue'       => 'default',
+            'retry_after' => 5,
         ];
     }
 }
