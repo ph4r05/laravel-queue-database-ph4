@@ -2,29 +2,29 @@
 
 namespace ph4r05\LaravelDatabasePh4\Queue;
 
+use Illuminate\Contracts\Queue\Queue as QueueContract;
 use Illuminate\Database\Connection;
 use Illuminate\Database\DetectsDeadlocks;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Queue\DatabaseQueue;
-
-use Illuminate\Contracts\Queue\Queue as QueueContract;
 use Illuminate\Queue\Jobs\DatabaseJob;
 use Illuminate\Queue\Jobs\DatabaseJobRecord;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
 
 class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph4DatabaseInterface
 {
     use DetectsDeadlocks;
 
     /**
-     * Job fetch strategy
+     * Job fetch strategy.
+     *
      * @var int
      */
     public $windowStrategy = 1;
 
     /**
-     * Number of parallel workers / size of the window
+     * Number of parallel workers / size of the window.
+     *
      * @var int
      */
     public $numWorkers = 1;
@@ -33,10 +33,10 @@ class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph
      * Create a new database queue instance.
      *
      * @param Connection $database
-     * @param  string $table
-     * @param  string $default
-     * @param  int $retryAfter
-     * @param array $config
+     * @param string     $table
+     * @param string     $default
+     * @param int        $retryAfter
+     * @param array      $config
      */
     public function __construct(Connection $database, string $table, string $default = 'default', int $retryAfter = 60, $config = [])
     {
@@ -48,47 +48,50 @@ class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph
     /**
      * Create an array to insert for the given job.
      *
-     * @param  string|null  $queue
-     * @param  string  $payload
-     * @param  int  $availableAt
-     * @param  int  $attempts
+     * @param string|null $queue
+     * @param string      $payload
+     * @param int         $availableAt
+     * @param int         $attempts
+     *
      * @return array
      */
     protected function buildDatabaseRecord($queue, $payload, $availableAt, $attempts = 0)
     {
         return [
-            'queue' => $queue,
-            'attempts' => $attempts,
-            'reserved_at' => null,
+            'queue'        => $queue,
+            'attempts'     => $attempts,
+            'reserved_at'  => null,
             'available_at' => $availableAt,
-            'created_at' => $this->currentTime(),
-            'payload' => $payload,
-            'version' => 0
+            'created_at'   => $this->currentTime(),
+            'payload'      => $payload,
+            'version'      => 0,
         ];
     }
 
     /**
      * Picks job from the candidates for the processing.
+     *
      * @param Collection $jobs
+     *
      * @return mixed
      */
-    protected function pickJob($jobs){
+    protected function pickJob($jobs)
+    {
         $cnt = $jobs->count();
 
-        if ($cnt == 1 || $this->windowStrategy == 0){
+        if ($cnt == 1 || $this->windowStrategy == 0) {
             return $jobs[0];
         }
 
         // Low 2 bits encode the probabilistic
         // method for choosing one job out of N
-        if (($this->windowStrategy & 3) == 1){
+        if (($this->windowStrategy & 3) == 1) {
             // Uniform pick
-            return $jobs[mt_rand(0, $cnt-1)];
-
-        } else if (($this->windowStrategy & 3) == 2){
+            return $jobs[mt_rand(0, $cnt - 1)];
+        } elseif (($this->windowStrategy & 3) == 2) {
             // Exp. pick
-            for($i=0; $i<$cnt;$i++){
-                if (mt_rand(0, 2) == 0){
+            for ($i = 0; $i < $cnt; $i++) {
+                if (mt_rand(0, 2) == 0) {
                     return $jobs[$i];
                 }
             }
@@ -102,9 +105,11 @@ class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph
     /**
      * Pop the next job off of the queue.
      *
-     * @param  string $queue
-     * @return \Illuminate\Contracts\Queue\Job|null
+     * @param string $queue
+     *
      * @throws \Exception|\Throwable
+     *
+     * @return \Illuminate\Contracts\Queue\Job|null
      */
     public function pop($queue = null)
     {
@@ -124,20 +129,20 @@ class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph
         // to return such job if there is one or return null if there are no jobs so worker
         // can sleep(). Thus we have to attempt to claim jobs until there are some.
         $job = null;
-        $ctr=0;
+        $ctr = 0;
 
         $numJobs = $this->windowStrategy > 0 ? $this->numWorkers : 1;
-        if ($this->windowStrategy > 3){
+        if ($this->windowStrategy > 3) {
             $numJobs = ceil($this->numWorkers * 0.5);
-        } else if ($this->windowStrategy > 7){
+        } elseif ($this->windowStrategy > 7) {
             $numJobs = ceil($this->numWorkers * 2);
         }
 
         do {
             // Get set of firts N available jobs
             $jobs = $this->getNextAvailableJobs($queue, $numJobs);
-            if ($jobs->isEmpty()){
-                return null;
+            if ($jobs->isEmpty()) {
+                return;
             }
 
             // Random pick from the jobs, depending on the strategy
@@ -149,22 +154,20 @@ class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph
             if (!empty($jobClaimed)) {
                 // job was successfully claimed, return it.
                 return $jobClaimed;
-
             } else {
-                $ctr+=1;
+                $ctr += 1;
             }
-
-        } while($job !== null);
-        return null;
+        } while ($job !== null);
     }
 
     /**
      * Get the next available job for the queue.
      *
-     * @param  string|null  $queue
+     * @param string|null $queue
+     *
      * @return \Illuminate\Support\Collection
      */
-    protected function getNextAvailableJobs($queue, $limit=1)
+    protected function getNextAvailableJobs($queue, $limit = 1)
     {
         $jobs = $this->database->table($this->table)
             ->where('queue', $this->getQueue($queue))
@@ -182,15 +185,16 @@ class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph
     /**
      * Marshal the reserved job into a DatabaseJob instance.
      *
-     * @param  string  $queue
-     * @param  \Illuminate\Queue\Jobs\DatabaseJobRecord  $job
+     * @param string                                   $queue
+     * @param \Illuminate\Queue\Jobs\DatabaseJobRecord $job
+     *
      * @return \Illuminate\Queue\Jobs\DatabaseJob
      */
     protected function marshalJob($queue, $job)
     {
         $job = $this->markJobAsReserved($job);
-        if (empty($job)){
-            return null;
+        if (empty($job)) {
+            return;
         }
 
         return new DatabaseJob(
@@ -201,7 +205,8 @@ class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph
     /**
      * Marshal the reserved job into a DatabaseJob instance.
      *
-     * @param  \Illuminate\Queue\Jobs\DatabaseJobRecord $job
+     * @param \Illuminate\Queue\Jobs\DatabaseJobRecord $job
+     *
      * @return DatabaseJobRecord|null
      */
     protected function markJobAsReserved($job)
@@ -211,8 +216,8 @@ class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph
             ->where('version', $job->version)
             ->update([
                 'reserved_at' => $job->touch(),
-                'attempts' => $job->increment(),
-                'version' => new Expression('version + 1'),
+                'attempts'    => $job->increment(),
+                'version'     => new Expression('version + 1'),
             ]);
 
         return $affected ? $job : null;
@@ -220,12 +225,14 @@ class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph
 
     /**
      * Delete a reserved job from the queue.
-     * https://github.com/laravel/framework/issues/7046
+     * https://github.com/laravel/framework/issues/7046.
      *
-     * @param  string $queue
-     * @param  string $id
-     * @return void
+     * @param string $queue
+     * @param string $id
+     *
      * @throws \Exception|\Throwable
+     *
+     * @return void
      */
     public function deleteReserved($queue, $id)
     {
@@ -233,5 +240,4 @@ class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph
             ->where('id', $id)
             ->delete();
     }
-
 }
