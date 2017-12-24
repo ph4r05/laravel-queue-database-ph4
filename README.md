@@ -50,6 +50,12 @@ return [
   Higher throughput with slight job reordering (for more info please refer to the [blog])
 
 
+To use the optimistic locking you can now change your `.env`:
+
+```
+QUEUE_DRIVER=database_ph4
+```
+
 #### Usage
 
 Once you completed the configuration you can use Laravel Queue API. If you used other queue drivers you do not need to change anything else. If you do not know how to use Queue API, please refer to the official Laravel documentation: http://laravel.com/docs/queues
