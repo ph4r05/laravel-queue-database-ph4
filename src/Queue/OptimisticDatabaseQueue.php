@@ -165,7 +165,7 @@ class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph
      * Get the next available job for the queue.
      *
      * @param string|null $queue
-     *
+     * @param int $limit
      * @return \Illuminate\Support\Collection
      */
     protected function getNextAvailableJobs($queue, $limit = 1)
