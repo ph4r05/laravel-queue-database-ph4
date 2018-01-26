@@ -142,7 +142,7 @@ class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph
             // Get set of first N available jobs
             $jobs = $this->getNextAvailableJobs($queue, $numJobs);
             if ($jobs->isEmpty()) {
-                return null;
+                return;
             }
 
             // Random pick from the jobs, depending on the strategy
@@ -158,14 +158,14 @@ class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph
                 $ctr += 1;
             }
         } while ($job !== null);
-        return null;
     }
 
     /**
      * Get the next available job for the queue.
      *
      * @param string|null $queue
-     * @param int $limit
+     * @param int         $limit
+     *
      * @return \Illuminate\Support\Collection
      */
     protected function getNextAvailableJobs($queue, $limit = 1)
@@ -195,7 +195,7 @@ class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph
     {
         $job = $this->markJobAsReserved($job);
         if (empty($job)) {
-            return null;
+            return;
         }
 
         return new DatabaseJob(

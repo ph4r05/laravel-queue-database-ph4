@@ -3,13 +3,13 @@
  * Created by PhpStorm.
  * User: dusanklinec
  * Date: 26/01/2018
- * Time: 13:01
+ * Time: 13:01.
  */
 
 namespace ph4r05\LaravelDatabasePh4\Queue\Misc;
 
 /**
- * Class WorkersTracker
+ * Class WorkersTracker.
  *
  * Uses database table to track active workers currently working on the given queue.
  * Worker register itself to the DB when created, updates his record during the progress
@@ -18,24 +18,25 @@ namespace ph4r05\LaravelDatabasePh4\Queue\Misc;
  *
  * The number of active workers per queue helps to optimize parameter setup for optimistic
  * queue locking.
- *
- * @package ph4r05\LaravelDatabasePh4\Queue\Misc
  */
 class WorkerTracker
 {
     /**
-     * queue -> last ping time
+     * queue -> last ping time.
+     *
      * @var array
      */
     protected $lastPingMap = [];
 
     /**
-     * queue -> active workers list
+     * queue -> active workers list.
+     *
      * @var array
      */
     protected $workersMap = [];
 
-    public function __construct(){
+    public function __construct()
+    {
         // TODO: implement
     }
 
@@ -46,7 +47,8 @@ class WorkerTracker
      * @param $queue
      * @param $force bool - override caching, enforce db write
      */
-    public function tick($queue, $force = false){
+    public function tick($queue, $force = false)
+    {
         // TODO: implement
     }
 
@@ -55,7 +57,8 @@ class WorkerTracker
      *
      * @param $queues
      */
-    public function create($queues){
+    public function create($queues)
+    {
         // TODO: implement
     }
 
@@ -65,19 +68,18 @@ class WorkerTracker
      *
      * @param $queues
      */
-    public function destroy($queues){
+    public function destroy($queues)
+    {
         // TODO: implement
     }
 
     /**
      * Returns number of workers active for the queue.
+     *
      * @param $queue
      */
-    public function getNumWorkers($queue){
+    public function getNumWorkers($queue)
+    {
         // TODO: implement
     }
-
-
 }
-
-
