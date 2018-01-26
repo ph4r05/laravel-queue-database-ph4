@@ -158,6 +158,7 @@ class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph
                 $ctr += 1;
             }
         } while ($job !== null);
+        return null;
     }
 
     /**
