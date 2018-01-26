@@ -139,10 +139,10 @@ class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph
         }
 
         do {
-            // Get set of firts N available jobs
+            // Get set of first N available jobs
             $jobs = $this->getNextAvailableJobs($queue, $numJobs);
             if ($jobs->isEmpty()) {
-                return;
+                return null;
             }
 
             // Random pick from the jobs, depending on the strategy
