@@ -195,7 +195,7 @@ class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph
     {
         $job = $this->markJobAsReserved($job);
         if (empty($job)) {
-            return;
+            return null;
         }
 
         return new DatabaseJob(
