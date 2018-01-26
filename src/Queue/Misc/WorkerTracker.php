@@ -80,12 +80,4 @@ class WorkerTracker
 
 }
 
-/**
- * Class WorkerRecord
- * Helper wrapper for loading active workers.
- * @package ph4r05\LaravelDatabasePh4\Queue\Misc
- */
-class WorkerRecord {
-
-}
 
