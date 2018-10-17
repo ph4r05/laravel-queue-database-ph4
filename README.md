@@ -87,4 +87,12 @@ Cons:
 
 You can contribute to this package by discovering bugs and opening issues. Please, add to which version of package you create pull request or issue. 
 
+
+#### Donations
+
+Thank you for all your support!
+
+Monero:
+47BEukN83whUdvuXbaWmDDQLYNUpLsvFR2jioQtpP5vD8b3o74b9oFgQ3KFa3ibjbwBsaJEehogjiUCfGtugUGAuJAfbh1Z
+
 [blog]: https://ph4r05.deadcode.me/blog/2017/12/23/laravel-queues-optimization.html
