@@ -69,7 +69,7 @@ class QueueDatabaseQueueUnitTest extends TestCase
         $createPayload->setAccessible(true);
         $createPayload->invokeArgs($queue, [
             $job,
-			'default',
+            'default',
         ]);
     }
 
@@ -84,7 +84,7 @@ class QueueDatabaseQueueUnitTest extends TestCase
         $createPayload->setAccessible(true);
         $createPayload->invokeArgs($queue, [
             ["\xc3\x28"],
-			'default',
+            'default',
         ]);
     }
 
