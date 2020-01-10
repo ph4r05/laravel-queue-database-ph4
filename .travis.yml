@@ -5,6 +5,7 @@ language: php
 php:
   - 7.0
   - 7.1
+  - 7.2
 
 before_script:
   - COMPOSER_DISCARD_CHANGES=1 composer update --prefer-dist --no-interaction --no-suggest

@@ -26,10 +26,12 @@ class QueueDatabaseQueueUnitTest extends TestCase
         $database->shouldReceive('table')->with('table')->andReturn($query = m::mock('stdClass'));
         $query->shouldReceive('insertGetId')->once()->andReturnUsing(function ($array) {
             $this->assertEquals('default', $array['queue']);
-			if(trait_exists('Illuminate\Database\DetectsConcurrencyErrors'))
-            $this->assertEquals(json_encode(['displayName' => 'foo', 'job' => 'foo', 'maxTries' => null, 'delay'=>null, 'timeout' => null, 'data' => ['data']]), $array['payload']);
-			if(trait_exists('Illuminate\Database\DetectsDeadlocks'))
-			$this->assertEquals(json_encode(['displayName' => 'foo', 'job' => 'foo', 'maxTries' => null, 'timeout' => null, 'data' => ['data']]), $array['payload']);
+            if(trait_exists('Illuminate\Database\DetectsConcurrencyErrors')) {
+				$this->assertEquals(json_encode(['displayName' => 'foo', 'job' => 'foo', 'maxTries' => null, 'delay'=>null, 'timeout' => null, 'data' => ['data']]), $array['payload']);
+			}
+			if(trait_exists('Illuminate\Database\DetectsDeadlocks')) {
+				$this->assertEquals(json_encode(['displayName' => 'foo', 'job' => 'foo', 'maxTries' => null, 'timeout' => null, 'data' => ['data']]), $array['payload']);
+			}
             $this->assertEquals(0, $array['attempts']);
             $this->assertNull($array['reserved_at']);
             $this->assertInternalType('int', $array['available_at']);
@@ -49,10 +51,12 @@ class QueueDatabaseQueueUnitTest extends TestCase
         $database->shouldReceive('table')->with('table')->andReturn($query = m::mock('stdClass'));
         $query->shouldReceive('insertGetId')->once()->andReturnUsing(function ($array) {
             $this->assertEquals('default', $array['queue']);
-			if(trait_exists('Illuminate\Database\DetectsConcurrencyErrors'))
-            $this->assertEquals(json_encode(['displayName' => 'foo', 'job' => 'foo', 'maxTries' => null, 'delay'=>null, 'timeout' => null, 'data' => ['data']]), $array['payload']);
-			if(trait_exists('Illuminate\Database\DetectsDeadlocks'))
-			$this->assertEquals(json_encode(['displayName' => 'foo', 'job' => 'foo', 'maxTries' => null, 'timeout' => null, 'data' => ['data']]), $array['payload']);
+			if(trait_exists('Illuminate\Database\DetectsConcurrencyErrors')) {
+				$this->assertEquals(json_encode(['displayName' => 'foo', 'job' => 'foo', 'maxTries' => null, 'delay'=>null, 'timeout' => null, 'data' => ['data']]), $array['payload']);
+			}
+			if(trait_exists('Illuminate\Database\DetectsDeadlocks')) {
+				$this->assertEquals(json_encode(['displayName' => 'foo', 'job' => 'foo', 'maxTries' => null, 'timeout' => null, 'data' => ['data']]), $array['payload']);
+			}
             $this->assertEquals(0, $array['attempts']);
             $this->assertNull($array['reserved_at']);
             $this->assertInternalType('int', $array['available_at']);
@@ -105,46 +109,48 @@ class QueueDatabaseQueueUnitTest extends TestCase
         $queue->expects($this->any())->method('currentTime')->will($this->returnValue('created'));
         $queue->expects($this->any())->method('availableAt')->will($this->returnValue('available'));
         $database->shouldReceive('table')->with('table')->andReturn($query = m::mock('stdClass'));
-		if(trait_exists('Illuminate\Database\DetectsConcurrencyErrors'))
-        $query->shouldReceive('insert')->once()->andReturnUsing(function ($records) {
-            $this->assertEquals([[
-                'queue'        => 'queue',
-                'payload'      => json_encode(['displayName' => 'foo', 'job' => 'foo', 'maxTries' => null, 'delay'=>null, 'timeout' => null, 'data' => ['data']]),
-                'attempts'     => 0,
-                'reserved_at'  => null,
-                'available_at' => 'available',
-                'created_at'   => 'created',
-                'version'      => 0,
-            ], [
-                'queue'        => 'queue',
-                'payload'      => json_encode(['displayName' => 'bar', 'job' => 'bar', 'maxTries' => null, 'delay'=>null, 'timeout' => null, 'data' => ['data']]),
-                'attempts'     => 0,
-                'reserved_at'  => null,
-                'available_at' => 'available',
-                'created_at'   => 'created',
-                'version'      => 0,
-            ]], $records);
-        });
-		if(trait_exists('Illuminate\Database\DetectsDeadlocks'))
-        $query->shouldReceive('insert')->once()->andReturnUsing(function ($records) {
-            $this->assertEquals([[
-                'queue'        => 'queue',
-                'payload'      => json_encode(['displayName' => 'foo', 'job' => 'foo', 'maxTries' => null, 'timeout' => null, 'data' => ['data']]),
-                'attempts'     => 0,
-                'reserved_at'  => null,
-                'available_at' => 'available',
-                'created_at'   => 'created',
-                'version'      => 0,
-            ], [
-                'queue'        => 'queue',
-                'payload'      => json_encode(['displayName' => 'bar', 'job' => 'bar', 'maxTries' => null, 'timeout' => null, 'data' => ['data']]),
-                'attempts'     => 0,
-                'reserved_at'  => null,
-                'available_at' => 'available',
-                'created_at'   => 'created',
-                'version'      => 0,
-            ]], $records);
-        });
+		if(trait_exists('Illuminate\Database\DetectsConcurrencyErrors')) {
+			$query->shouldReceive('insert')->once()->andReturnUsing(function ($records) {
+				$this->assertEquals([[
+					'queue'        => 'queue',
+					'payload'      => json_encode(['displayName' => 'foo', 'job' => 'foo', 'maxTries' => null, 'delay'=>null, 'timeout' => null, 'data' => ['data']]),
+					'attempts'     => 0,
+					'reserved_at'  => null,
+					'available_at' => 'available',
+					'created_at'   => 'created',
+					'version'      => 0,
+				], [
+					'queue'        => 'queue',
+					'payload'      => json_encode(['displayName' => 'bar', 'job' => 'bar', 'maxTries' => null, 'delay'=>null, 'timeout' => null, 'data' => ['data']]),
+					'attempts'     => 0,
+					'reserved_at'  => null,
+					'available_at' => 'available',
+					'created_at'   => 'created',
+					'version'      => 0,
+				]], $records);
+			});
+		}
+		if(trait_exists('Illuminate\Database\DetectsDeadlocks')) {
+			$query->shouldReceive('insert')->once()->andReturnUsing(function ($records) {
+				$this->assertEquals([[
+					'queue'        => 'queue',
+					'payload'      => json_encode(['displayName' => 'foo', 'job' => 'foo', 'maxTries' => null, 'timeout' => null, 'data' => ['data']]),
+					'attempts'     => 0,
+					'reserved_at'  => null,
+					'available_at' => 'available',
+					'created_at'   => 'created',
+					'version'      => 0,
+				], [
+					'queue'        => 'queue',
+					'payload'      => json_encode(['displayName' => 'bar', 'job' => 'bar', 'maxTries' => null, 'timeout' => null, 'data' => ['data']]),
+					'attempts'     => 0,
+					'reserved_at'  => null,
+					'available_at' => 'available',
+					'created_at'   => 'created',
+					'version'      => 0,
+				]], $records);
+			});
+		}
         $queue->bulk(['foo', 'bar'], ['data'], 'queue');
     }
 }
