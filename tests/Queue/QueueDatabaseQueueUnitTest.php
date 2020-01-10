@@ -105,24 +105,44 @@ class QueueDatabaseQueueUnitTest extends TestCase
         $queue->expects($this->any())->method('currentTime')->will($this->returnValue('created'));
         $queue->expects($this->any())->method('availableAt')->will($this->returnValue('available'));
         $database->shouldReceive('table')->with('table')->andReturn($query = m::mock('stdClass'));
-        $query->shouldReceive('insert')->once()->andReturnUsing(function ($records) {
-            $this->assertEquals([[
-                'queue'        => 'queue',
-                'payload'      => json_encode(['displayName' => 'foo', 'job' => 'foo', 'maxTries' => null, 'delay'=>null, 'timeout' => null, 'data' => ['data']]),
-                'attempts'     => 0,
-                'reserved_at'  => null,
-                'available_at' => 'available',
-                'created_at'   => 'created',
-                'version'      => 0,
-            ], [
-                'queue'        => 'queue',
-                'payload'      => json_encode(['displayName' => 'bar', 'job' => 'bar', 'maxTries' => null, 'delay'=>null, 'timeout' => null, 'data' => ['data']]),
-                'attempts'     => 0,
-                'reserved_at'  => null,
-                'available_at' => 'available',
-                'created_at'   => 'created',
-                'version'      => 0,
-            ]], $records);
+        $query->shouldReceive('insert')->once()->andReturnUsing(function ($records) {			
+			if(array_key_exists("delay",json_decode($records[0]['payload'],true)))
+				$this->assertEquals([[
+					'queue'        => 'queue',
+					'payload'      => json_encode(['displayName' => 'foo', 'job' => 'foo', 'maxTries' => null, 'delay'=>null, 'timeout' => null, 'data' => ['data']]),
+					'attempts'     => 0,
+					'reserved_at'  => null,
+					'available_at' => 'available',
+					'created_at'   => 'created',
+					'version'      => 0,
+				], [
+					'queue'        => 'queue',
+					'payload'      => json_encode(['displayName' => 'bar', 'job' => 'bar', 'maxTries' => null, 'delay'=>null, 'timeout' => null, 'data' => ['data']]),
+					'attempts'     => 0,
+					'reserved_at'  => null,
+					'available_at' => 'available',
+					'created_at'   => 'created',
+					'version'      => 0,
+				]], $records);
+			else
+				$this->assertEquals([[
+					'queue'        => 'queue',
+					'payload'      => json_encode(['displayName' => 'foo', 'job' => 'foo', 'maxTries' => null, 'timeout' => null, 'data' => ['data']]),
+					'attempts'     => 0,
+					'reserved_at'  => null,
+					'available_at' => 'available',
+					'created_at'   => 'created',
+					'version'      => 0,
+				], [
+					'queue'        => 'queue',
+					'payload'      => json_encode(['displayName' => 'bar', 'job' => 'bar', 'maxTries' => null, 'timeout' => null, 'data' => ['data']]),
+					'attempts'     => 0,
+					'reserved_at'  => null,
+					'available_at' => 'available',
+					'created_at'   => 'created',
+					'version'      => 0,
+				]], $records);
+
         });
 
         $queue->bulk(['foo', 'bar'], ['data'], 'queue');
