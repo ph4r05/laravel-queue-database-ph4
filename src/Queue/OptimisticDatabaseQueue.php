@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\DetectsConcurrencyErrors;
 use Illuminate\Database\DetectsDeadlocks;
-if(trait_exists('Illuminate\Database\DetectsConcurrencyErrors')){
+if(trait_exists('Illuminate\Database\DetectsConcurrencyErrors')) {
 class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph4DatabaseInterface
 {		
 	use DetectsConcurrencyErrors;
@@ -244,7 +244,7 @@ class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph
     }
 }
 }
-if(trait_exists('Illuminate\Database\DetectsDeadlocks')){
+if(trait_exists('Illuminate\Database\DetectsDeadlocks')) {
 class OptimisticDatabaseQueue extends DatabaseQueue implements QueueContract, Ph4DatabaseInterface
 {		
 	use DetectsDeadlocks;
