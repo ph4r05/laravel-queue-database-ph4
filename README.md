@@ -93,6 +93,13 @@ You can contribute to this package by discovering bugs and opening issues. Pleas
 Thank you for all your support!
 
 Monero:
-47BEukN83whUdvuXbaWmDDQLYNUpLsvFR2jioQtpP5vD8b3o74b9oFgQ3KFa3ibjbwBsaJEehogjiUCfGtugUGAuJAfbh1Z
+```
+87iMuZKqgBZbxjvjJaieTqLBsW3VKtkiuRXL2arcr8eiL4eK8kFi4QbaXCXGgmNWYp5Linpd9pj5McFZ8SQevkenGuZWMCT
+```
+
+Bitcoin:
+```
+17hzavLCXqavzmWEEjtX54VeCJVmbrHZQC
+```
 
 [blog]: https://ph4r05.deadcode.me/blog/2017/12/23/laravel-queues-optimization.html
