@@ -1,6 +1,7 @@
 {
   "name": "ph4r05/laravel-queue-database-ph4",
   "description": "Laravel Database queue driver with optimistic locking",
+  "version": "dev-master",
   "license": "MIT",
   "authors": [
     {
@@ -10,15 +11,15 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
-    "illuminate/database": "5.5.* || 5.6.* || 5.7.* || 5.8.*",
-    "illuminate/support": "5.5.* || 5.6.* || 5.7.* || 5.8.*",
-    "illuminate/queue": "5.5.* || 5.6.* || 5.7.* || 5.8.*"
+    "php": "^7.2",
+    "illuminate/support": "^6.2",
+    "illuminate/database": "6.*",
+    "illuminate/queue": "6.*"
   },
   "require-dev": {
-    "phpunit/phpunit": "~6.0",
-    "illuminate/events": "5.5.* || 5.6.* || 5.7.* || 5.8.*",
-    "mockery/mockery": "~1.0"
+    "phpunit/phpunit": " ^7.0",
+    "mockery/mockery": "~1.0",
+    "ext-json": "*"
   },
   "autoload": {
     "psr-4": {
@@ -31,9 +32,6 @@
     }
   },
   "extra": {
-    "branch-alias": {
-      "dev-master": "0.1.4-dev"
-    },
     "laravel": {
       "providers": [
         "ph4r05\\LaravelDatabasePh4\\LaravelQueuePh4ServiceProvider"
