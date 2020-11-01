@@ -1,7 +1,7 @@
 {
   "name": "ph4r05/laravel-queue-database-ph4",
   "description": "Laravel Database queue driver with optimistic locking",
-  "version": "dev-master",
+  "version": "v0.1.6",
   "license": "MIT",
   "authors": [
     {
