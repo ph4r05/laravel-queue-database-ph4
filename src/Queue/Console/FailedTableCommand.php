@@ -63,7 +63,9 @@ class FailedTableCommand extends Command
         $table = $this->laravel['config']['queue.failed.table'];
 
         $this->replaceMigration(
-            $this->createBaseMigration($table), $table, Str::studly($table)
+            $this->createBaseMigration($table),
+            $table,
+            Str::studly($table)
         );
 
         $this->info('Migration created successfully!');
@@ -81,7 +83,8 @@ class FailedTableCommand extends Command
     protected function createBaseMigration($table = 'failed_jobs_ph4')
     {
         return $this->laravel['migration.creator']->create(
-            'create_'.$table.'_table', $this->laravel->databasePath().'/migrations'
+            'create_'.$table.'_table',
+            $this->laravel->databasePath().'/migrations'
         );
     }
 

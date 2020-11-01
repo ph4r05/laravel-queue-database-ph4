@@ -69,7 +69,11 @@ class PessimisticDatabaseQueue extends DatabaseQueue implements QueueContract, P
         $job = $this->markJobAsReserved($job);
 
         return new DatabaseJob(
-            $this->container, $this, $job, $this->connectionName, $queue
+            $this->container,
+            $this,
+            $job,
+            $this->connectionName,
+            $queue
         );
     }
 

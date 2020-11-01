@@ -63,7 +63,9 @@ class TableCommand extends Command
         $table = $this->laravel['config']['queue.connections.database_ph4.table'] ?? 'jobs_ph4';
 
         $this->replaceMigration(
-            $this->createBaseMigration($table), $table, Str::studly($table)
+            $this->createBaseMigration($table),
+            $table,
+            Str::studly($table)
         );
 
         $this->info('Migration created successfully!');
@@ -81,7 +83,8 @@ class TableCommand extends Command
     protected function createBaseMigration($table)
     {
         return $this->laravel['migration.creator']->create(
-            'create_'.$table.'_table', $this->laravel->databasePath().'/migrations'
+            'create_'.$table.'_table',
+            $this->laravel->databasePath().'/migrations'
         );
     }
 
