@@ -27,7 +27,7 @@ class LaravelQueuePh4ServiceProviderTest extends TestCase
         $queueMock
             ->expects($this->once())
             ->method('addConnector')
-            ->with('database_ph4', $this->isInstanceOf(\Closure::class))
+            ->with(['database_ph4', $this->isInstanceOf(\Closure::class)])
             ->willReturnCallback(function ($driver, \Closure $resolver) use ($resolverMock) {
                 $connector = $resolver();
 
