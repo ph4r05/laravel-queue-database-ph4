@@ -1,7 +1,7 @@
 {
   "name": "ph4r05/laravel-queue-database-ph4",
   "description": "Laravel Database queue driver with optimistic locking",
-  "version": "dev-master",
+  "version": "v1.0.0",
   "license": "MIT",
   "authors": [
     {
@@ -11,10 +11,10 @@
     }
   ],
   "require": {
-    "php": "^7.2",
-    "illuminate/support": "^6.2",
-    "illuminate/database": "6.*",
-    "illuminate/queue": "6.*"
+    "php": "^7.2|^8.0",
+    "illuminate/support": "^8.0",
+    "illuminate/database": "^8.0",
+    "illuminate/queue": "^8.0"
   },
   "require-dev": {
     "phpunit/phpunit": " ^7.0",
